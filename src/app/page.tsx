@@ -1,4 +1,4 @@
-import { AddToCardButton } from "@atoms/Button";
+import { AddToCardButton } from "@atoms/AddToCardButton";
 import { ProductImage } from "@atoms/ProductImage";
 import { ProductListItemDescription } from "@atoms/ProductListItemDescription";
 import { formatMoney } from "@utils/helpers";
