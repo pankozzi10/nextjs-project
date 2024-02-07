@@ -5,7 +5,6 @@ import { formatMoney } from "@utils/helpers";
 
 export default function Home() {
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-between p-24">
 			<ul
 				data-testid="products-list"
 				className={
@@ -49,6 +48,5 @@ export default function Home() {
 					<AddToCardButton />
 				</li>
 			</ul>
-		</main>
 	);
 }
