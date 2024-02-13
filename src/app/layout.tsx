@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Mulish, Playfair_Display } from "next/font/google";
+import { clsx } from "clsx";
 import "./globals.css";
+import { type ReactNode } from "react";
+import { Navbar } from "@molecules/Navigation";
+import { Footer } from "@atoms/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const mulish = Mulish({ subsets: ["latin-ext"], variable: "--font-mulish" });
+const playfairDisplay = Playfair_Display({
+	subsets: ["latin-ext"],
+	variable: "--font-playfair-display",
+});
 
 export const metadata: Metadata = {
 	title: "NextJS 14 - course",
@@ -12,11 +20,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode;
+	children: ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>{children}</body>
+		<html lang="en" className={clsx([mulish.variable, playfairDisplay.variable], "h-full")}>
+			<body className={clsx([mulish.className, "grid min-h-full grid-rows-[48px_1fr_80px]"])}>
+				<Navbar />
+				<main className={"container m-auto py-20"}>{children}</main>
+				<Footer />
+			</body>
 		</html>
 	);
 }

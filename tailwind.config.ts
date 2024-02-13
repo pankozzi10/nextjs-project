@@ -12,8 +12,22 @@ const config: Config = {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 			},
+			transitionDuration: {
+				DEFAULT: "250ms",
+			},
+		},
+		screens: {
+			// mobile: "640px",
+			// tablet: "960px",
+			desktop: "1280px",
+		},
+		container: {
+			screens: {
+				// mobile: "600px",
+				// tablet: "900px",
+				desktop: "1200px",
+			},
 		},
 	},
-	plugins: [],
 };
 export default config;

@@ -1,25 +1,22 @@
+import { Badge } from "@atoms/Badge";
+import { ProductPrice } from "@atoms/ProductPrice";
+
 interface ProductListItemDescriptionProps {
 	category: string;
-	name: string;
-	price: string;
+	title: string;
+	price: number;
 }
 
 export const ProductListItemDescription = ({
 	category,
-	name,
+	title,
 	price,
 }: ProductListItemDescriptionProps) => {
 	return (
-		<div className={"flex"}>
-			<div>
-				<h3>{name}</h3>
-				<p>
-					<span>Kategoria:</span> {category}
-				</p>
-				<p>
-					<span>Cena:</span> {price}
-				</p>
-			</div>
+		<div className={"flex flex-col"}>
+			<Badge>{category}</Badge>
+			<h3 className={"py-2.5"}>{title}</h3>
+			<ProductPrice price={price} />
 		</div>
 	);
 };

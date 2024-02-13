@@ -1,7 +1,9 @@
-export const AddToCardButton = () => {
+export const AddToCartButton = () => {
 	return (
 		<div className={"group inline-flex cursor-pointer items-center gap-x-2"}>
-			<div className={"rounded-md bg-green-600 px-2 py-1.5 group-hover:bg-green-500"}>
+			<div
+				className={"rounded-md bg-green-600 px-2 py-1.5 transition-all group-hover:bg-green-500"}
+			>
 				<svg
 					width="20"
 					height="21"
@@ -15,7 +17,11 @@ export const AddToCardButton = () => {
 					/>
 				</svg>
 			</div>
-			<span className={"uppercase text-green-600 group-hover:text-green-500"}>Buy</span>
+			<span
+				className={"font-bold uppercase text-green-600 transition-all group-hover:text-green-500"}
+			>
+				Add to cart
+			</span>
 		</div>
 	);
 };
