@@ -4,7 +4,7 @@ import Link from "next/link";
 import { type ReactNode } from "react";
 import { type Route } from "next";
 import { clsx } from "clsx";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export interface ActiveLinkProps<T extends string> {
 	activeClassName: string;
@@ -23,14 +23,12 @@ export const ActiveLink = <T extends string>({
 }: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
 	const active = exact ? pathname === href : pathname.startsWith(href);
-	const searchParams = useSearchParams();
 
 	return (
 		<Link
 			aria-current={active ? "page" : undefined}
 			className={clsx(className, active && activeClassName)}
-			// @ts-expect-error FIXME
-			href={{ pathname: href, search: searchParams }}
+			href={{ pathname: href }}
 			role="link"
 		>
 			{children}
