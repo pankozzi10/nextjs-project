@@ -2,12 +2,13 @@ import { ProductListItem, type ProductListItemProps } from "@molecules/ProductLi
 
 interface ProductListProps {
 	products: ProductListItemProps[];
+	testId?: string;
 }
 
-export const ProductList = async ({ products }: ProductListProps) => {
+export const ProductList = async ({ products, testId = "products-list" }: ProductListProps) => {
 	return (
 		<ul
-			data-testid="products-list"
+			data-testid={testId}
 			className={
 				"radius grid w-full grid-cols-4 gap-px overflow-hidden rounded-3xl border border-gray-300 bg-gray-300 [&>li]:bg-white [&>li]:outline-1"
 			}

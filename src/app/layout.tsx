@@ -3,7 +3,7 @@ import { Mulish, Playfair_Display } from "next/font/google";
 import { clsx } from "clsx";
 import "./globals.css";
 import { type ReactNode } from "react";
-import { Navbar } from "@molecules/Navigation";
+import { Navbar } from "@organisms/Navigation";
 import { Footer } from "@atoms/Footer";
 
 const mulish = Mulish({ subsets: ["latin-ext"], variable: "--font-mulish" });
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={clsx([mulish.variable, playfairDisplay.variable], "h-full")}>
-			<body className={clsx([mulish.className, "grid min-h-full grid-rows-[48px_1fr_80px]"])}>
+			<body className={clsx([mulish.className, "grid min-h-full grid-rows-[70px_1fr_80px]"])}>
 				<Navbar />
 				<main className={"container m-auto py-20"}>{children}</main>
 				<Footer />

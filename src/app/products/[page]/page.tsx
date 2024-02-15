@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ProductList } from "@organisms/ProductList";
 import type { ProductListItemProps } from "@molecules/ProductListItem";
-import { Pagination } from "@molecules/Pagination";
+import { Pagination } from "@organisms/Pagination";
 
 const PAGE_SIZE = 20;
 

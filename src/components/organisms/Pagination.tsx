@@ -19,7 +19,7 @@ export const Pagination = <T extends string>({
 		<nav className="mt-8 flex justify-center">
 			<ul className="flex gap-x-2" aria-label="pagination">
 				{pages.map((page) => (
-					<li key={page} className={"h-8 w-8 "}>
+					<li key={page} className={"h-8 w-8"}>
 						<ActiveLink
 							className="flex h-full w-full items-center justify-center rounded bg-gray-200 text-neutral-900 transition-colors duration-300 hover:bg-gray-300"
 							activeClassName="bg-purple-800 hover:bg-purple-800 text-white hover:text-white"
