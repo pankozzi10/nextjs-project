@@ -1,62 +1,61 @@
 import { type Metadata } from "next";
-import { type ProductListItemProps } from "@molecules/ProductListItem";
+import { ProductByIdDocument, RelatedProductsDocument } from "@gql/graphql";
 import { AddToCartButton } from "@atoms/AddToCartButton";
 import { ProductImage } from "@atoms/ProductImage";
 import { Badge } from "@atoms/Badge";
 import { ProductPrice } from "@atoms/ProductPrice";
-// import { RelatedProducts } from "@organisms/RelatedProducts";
+import { RelatedProducts } from "@organisms/RelatedProducts";
+import { executeGraphQL } from "@utils/executeGraphQL";
 
-interface ProductPageProps {
-	params: {
-		productId: string;
-	};
-}
-
-// const getProducts = async () => {
-// 	const response = await fetch(`https://naszsklep-api.vercel.app/api/products?take=10`);
-// 	return (await response.json()) as ProductListItemProps[];
-// };
-
-const getProduct = async (productId: string) => {
-	const response = await fetch(`https://naszsklep-api.vercel.app/api/products/${productId}`);
-	return (await response.json()) as ProductListItemProps;
-};
+export type ProductPageParams = { productId?: string };
+type ProductPageProps = { params: ProductPageParams };
 
 export async function generateMetadata({
-	params,
+	params: { productId },
 }: {
-	params: { productId: string };
+	params: ProductPageParams;
 }): Promise<Metadata> {
-	const product: ProductListItemProps = await getProduct(params.productId);
+	const data = await executeGraphQL({
+		query: ProductByIdDocument,
+		variables: { id: productId ?? "" },
+	});
 
 	return {
-		title: product.title,
-		description: product.description,
+		title: data.product?.name ?? "Product not found",
+		description: data.product?.description ?? "",
 	};
 }
 
 export default async function ProductPage({ params: { productId } }: ProductPageProps) {
-	const product: ProductListItemProps = await getProduct(productId);
-	// const relatedProducts: ProductListItemProps[] = await getProducts();
+	if (!productId) throw new Error("No id");
+
+	const data = await executeGraphQL({ query: ProductByIdDocument, variables: { id: productId } });
+	const relatedData = await executeGraphQL({ query: RelatedProductsDocument });
+
+	if (!data.product) throw new Error("No product");
 
 	return (
 		<section>
 			<div className="grid grid-cols-2 gap-x-4">
 				<div className="flex items-center justify-center border-r border-gray-300 pr-8">
-					<ProductImage alt={`${product.title} image`} src={product.image} height={400} />
+					<ProductImage
+						alt={data.product.images[0].alt}
+						src={data.product.images[0].url}
+						height={400}
+					/>
 				</div>
 
 				<div className={"pl-8"}>
-					<Badge>{product.category}</Badge>
-					<h1 className={"pb-3 pt-8 text-4xl"}>{product.title}</h1>
-					<ProductPrice price={product.price} />
+					<Badge>{data.product.categories[0].name}</Badge>
+					<h1 className={"pb-3 pt-8 text-4xl"}>{data.product.name}</h1>
+					<ProductPrice price={data.product.price} />
 					<div className="py-10">
-						<p className="text-base text-gray-700">{product.description}</p>
+						<p className="text-base text-gray-700">{data.product.description}</p>
 					</div>
 					<AddToCartButton />
 				</div>
 			</div>
-			{/*<RelatedProducts products={relatedProducts.slice(0, 4) || []} />*/}
+			<RelatedProducts products={relatedData.products.data || []} />
 		</section>
 	);
 }

@@ -3,19 +3,19 @@ import { ProductPrice } from "@atoms/ProductPrice";
 
 interface ProductListItemDescriptionProps {
 	category: string;
-	title: string;
+	name: string;
 	price: number;
 }
 
 export const ProductListItemDescription = ({
 	category,
-	title,
+	name,
 	price,
 }: ProductListItemDescriptionProps) => {
 	return (
 		<div className={"flex flex-col"}>
 			<Badge>{category}</Badge>
-			<h3 className={"py-2.5"}>{title}</h3>
+			<h3 className={"py-2.5"}>{name}</h3>
 			<ProductPrice price={price} />
 		</div>
 	);

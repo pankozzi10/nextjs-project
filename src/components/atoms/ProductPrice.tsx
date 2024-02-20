@@ -1,4 +1,4 @@
-import { formatMoney } from "@utils/helpers";
+import { formatMoney } from "@utils/formatMoney";
 
 interface ProductPriceProps {
 	price: number;

@@ -16,7 +16,7 @@ export const Pagination = <T extends string>({
 	if (pages.length === 1) return null;
 
 	return (
-		<nav className="mt-8 flex justify-center">
+		<nav className="mt-12 flex justify-center">
 			<ul className="flex gap-x-2" aria-label="pagination">
 				{pages.map((page) => (
 					<li key={page} className={"h-8 w-8"}>

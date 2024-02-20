@@ -1,7 +1,8 @@
-import { ProductListItem, type ProductListItemProps } from "@molecules/ProductListItem";
+import { ProductListItem } from "@molecules/ProductListItem";
+import { type Product } from "@utils/types";
 
 interface ProductListProps {
-	products: ProductListItemProps[];
+	products: Product[];
 	testId?: string;
 }
 
@@ -17,10 +18,10 @@ export const ProductList = async ({ products, testId = "products-list" }: Produc
 				<ProductListItem
 					id={product.id}
 					key={index}
-					category={product.category}
-					title={product.title}
+					categories={product.categories}
+					name={product.name}
 					price={product.price}
-					image={product.image}
+					images={product.images}
 				/>
 			))}
 		</ul>

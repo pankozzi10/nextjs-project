@@ -1,0 +1,43 @@
+query ProductById($id: ID!) {
+    product(id: $id) {
+        id
+        categories {
+            id
+            name
+        }
+        description
+        images {
+            alt
+            height
+            id
+            url
+            width
+        }
+        name
+        price
+        rating
+    }
+}
+
+query RelatedProducts {
+    products(take: 4) {
+        data {
+            id
+            categories {
+                id
+                name
+            }
+            description
+            images {
+                alt
+                height
+                id
+                url
+                width
+            }
+            name
+            price
+            rating
+        }
+    }
+}

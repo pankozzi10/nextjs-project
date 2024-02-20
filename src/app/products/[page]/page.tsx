@@ -1,43 +1,38 @@
-import type { Metadata } from "next";
+import { ProductsPageListDocument } from "@gql/graphql";
+import { PAGE_SIZE } from "@utils/constants";
+import { executeGraphQL } from "@utils/executeGraphQL";
 import { ProductList } from "@organisms/ProductList";
-import type { ProductListItemProps } from "@molecules/ProductListItem";
 import { Pagination } from "@organisms/Pagination";
 
-const PAGE_SIZE = 20;
+export type ProductsPageParams = { page?: string };
+type ProductsPageProps = { params: ProductsPageParams };
 
-interface ProductPageProps {
-	offset: number;
-}
-
-const getProducts = async ({ offset }: ProductPageProps) => {
-	const response = await fetch(
-		`https://naszsklep-api.vercel.app/api/products?take=${PAGE_SIZE}&offset=${offset}`,
-	);
-	return (await response.json()) as ProductListItemProps[];
-};
-
-type ProductsPageParams = { page: string };
-
-export async function generateMetadata({
-	params: { page },
-}: {
-	params: ProductsPageParams;
-}): Promise<Metadata> {
+export async function generateMetadata({ params: { page } }: { params: ProductsPageParams }) {
 	return {
-		title: `Products list: page ${page}`,
+		title: `Products list - page ${page}`,
 		description: "Products list page with pagination.",
 	};
 }
 
-export default async function ProductsPage({ params: { page } }: { params: ProductsPageParams }) {
-	const products: ProductListItemProps[] = await getProducts({
-		offset: (parseInt(page) - 1) * PAGE_SIZE,
+export default async function ProductsPage({ params: { page } }: ProductsPageProps) {
+	const data = await executeGraphQL({
+		query: ProductsPageListDocument,
+		variables: {
+			skip: (parseInt(page ?? "0") - 1) * PAGE_SIZE,
+			take: PAGE_SIZE,
+		},
 	});
+
+	if (data.products.data.length === 0) throw new Error("No products found");
 
 	return (
 		<section className="flex flex-col items-center justify-between">
-			<ProductList products={products} />
-			<Pagination setHref={(page) => `/products/${page}`} pageSize={PAGE_SIZE} totalItems={100} />
+			<ProductList products={data.products.data} />
+			<Pagination
+				setHref={(page) => `/products/${page}`}
+				pageSize={PAGE_SIZE}
+				totalItems={data.products.meta.total}
+			/>
 		</section>
 	);
 }
