@@ -4,7 +4,7 @@ import { AddToCartButton } from "@atoms/AddToCartButton";
 import { ProductImage } from "@atoms/ProductImage";
 import { Badge } from "@atoms/Badge";
 import { ProductPrice } from "@atoms/ProductPrice";
-import { RelatedProducts } from "@organisms/RelatedProducts";
+// import { RelatedProducts } from "@organisms/RelatedProducts";
 
 interface ProductPageProps {
 	params: {
@@ -12,10 +12,10 @@ interface ProductPageProps {
 	};
 }
 
-const getProducts = async () => {
-	const response = await fetch(`https://naszsklep-api.vercel.app/api/products?take=10`);
-	return (await response.json()) as ProductListItemProps[];
-};
+// const getProducts = async () => {
+// 	const response = await fetch(`https://naszsklep-api.vercel.app/api/products?take=10`);
+// 	return (await response.json()) as ProductListItemProps[];
+// };
 
 const getProduct = async (productId: string) => {
 	const response = await fetch(`https://naszsklep-api.vercel.app/api/products/${productId}`);
@@ -37,7 +37,7 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params: { productId } }: ProductPageProps) {
 	const product: ProductListItemProps = await getProduct(productId);
-	const relatedProducts: ProductListItemProps[] = await getProducts();
+	// const relatedProducts: ProductListItemProps[] = await getProducts();
 
 	return (
 		<section>
