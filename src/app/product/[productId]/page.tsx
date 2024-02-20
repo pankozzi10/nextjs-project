@@ -56,7 +56,7 @@ export default async function ProductPage({ params: { productId } }: ProductPage
 					<AddToCartButton />
 				</div>
 			</div>
-			<RelatedProducts products={relatedProducts.slice(0, 4) || []} />
+			{/*<RelatedProducts products={relatedProducts.slice(0, 4) || []} />*/}
 		</section>
 	);
 }
