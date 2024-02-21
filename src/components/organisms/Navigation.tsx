@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ActiveLink } from "@atoms/ActiveLink";
 import { Search } from "@molecules/Search";
 
@@ -29,7 +30,9 @@ export const Navbar = () => {
 						Categories
 					</ActiveLink>
 				</nav>
-				<Search />
+				<Suspense>
+					<Search />
+				</Suspense>
 				<div>Cart</div>
 			</div>
 		</header>

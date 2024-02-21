@@ -1,9 +1,9 @@
+import { notFound } from "next/navigation";
 import { ProductsPageListDocument } from "@gql/graphql";
 import { PAGE_SIZE } from "@utils/constants";
 import { executeGraphQL } from "@utils/executeGraphQL";
 import { ProductList } from "@organisms/ProductList";
 import { Pagination } from "@organisms/Pagination";
-import { notFound } from "next/navigation";
 
 export type ProductsPageParams = { page?: string };
 type ProductsPageProps = { params: ProductsPageParams };
