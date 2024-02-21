@@ -1,16 +1,33 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
+import { type ChangeEventHandler, useState, useEffect } from "react";
+import { useDebounce } from "use-debounce";
+
 export const Search = () => {
-	// TODO :: LOGIC
+	const router = useRouter();
+	const params = useSearchParams();
+	const query = params.get("query");
+
+	const [value, setValue] = useState(query || "");
+	const [debouncedValue] = useDebounce(value, 500);
+	const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+		setValue(e.target.value);
+	};
+
+	useEffect(() => {
+		debouncedValue && router.replace(`/search?query=${debouncedValue}`);
+	}, [debouncedValue, router]);
+
 	return (
 		<div className={"relative w-full"}>
 			<input
 				className="w-full rounded-md border border-gray-300 bg-gray-100 py-3 pl-4 pr-12 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-800"
-				// onChange={handleChange}
 				placeholder="Search for products, categories or brands..."
+				onChange={handleChange}
 				type="text"
 				role="searchbox"
-				// value={value}
+				value={value}
 			/>
 			<div className={"absolute right-5 top-3.5 cursor-pointer"}>
 				<svg

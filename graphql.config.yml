@@ -1,0 +1,2 @@
+schema: 'https://graphql.hyperfunctor.com/graphql'
+documents: '**/*.graphql'

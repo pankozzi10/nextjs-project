@@ -1,8 +1,8 @@
-import { type ProductListItemProps } from "@molecules/ProductListItem";
 import { ProductList } from "@organisms/ProductList";
+import { type Product } from "@utils/types";
 
 interface RelatedProductsProps {
-	products: ProductListItemProps[]; // change type to related products
+	products: Product[]; // change type to related products
 }
 
 export const RelatedProducts = async ({ products }: RelatedProductsProps) => {

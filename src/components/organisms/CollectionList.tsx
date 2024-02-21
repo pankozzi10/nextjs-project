@@ -1,7 +1,8 @@
-import { ProductListItem, type ProductListItemProps } from "@molecules/ProductListItem";
+import { ProductListItem } from "@molecules/ProductListItem";
+import { type Product } from "@utils/types";
 
 interface CollectionListProps {
-	collections: ProductListItemProps[];
+	collections: Product[];
 }
 
 export const CollectionList = async ({ collections }: CollectionListProps) => {
@@ -15,11 +16,11 @@ export const CollectionList = async ({ collections }: CollectionListProps) => {
 			{collections.map((collection, index) => (
 				<ProductListItem
 					id={collection.id}
+					categories={collection.categories}
+					images={collection.images}
 					key={index}
-					category={collection.category}
-					title={collection.title}
+					name={collection.name}
 					price={collection.price}
-					image={collection.image}
 				/>
 			))}
 		</ul>
