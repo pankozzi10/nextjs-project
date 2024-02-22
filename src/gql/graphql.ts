@@ -272,6 +272,36 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CategoriesPageListQueryVariables = Exact<{
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CategoriesPageListQuery = { categories: { data: Array<{ id: string, name: string, description: string, slug: string, products: Array<{ images: Array<{ alt: string, height: number, id: string, url: string, width: number }> }> }>, meta: { total: number } } };
+
+export type CategoryProductsQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CategoryProductsQuery = { category?: { id: string, products: Array<{ id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ alt: string, height: number, id: string, url: string, width: number }> }> } | null };
+
+export type CollectionBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type CollectionBySlugQuery = { collection?: { description: string, id: string, name: string, products: Array<{ id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ alt: string, height: number, id: string, url: string, width: number }> }> } | null };
+
+export type HomePageQueryVariables = Exact<{
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
+}>;
+
+
+export type HomePageQuery = { collections: { data: Array<{ id: string, description: string, name: string, slug: string, products: Array<{ id: string, images: Array<{ id: string, alt: string, height: number, url: string, width: number }> }> }> }, products: { data: Array<{ id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ id: string, alt: string, height: number, url: string, width: number }> }> } };
+
 export type ProductByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -314,6 +344,124 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const CategoriesPageListDocument = new TypedDocumentString(`
+    query CategoriesPageList($take: Int, $skip: Int) {
+  categories(take: $take, skip: $skip) {
+    data {
+      id
+      name
+      description
+      slug
+      products {
+        images {
+          alt
+          height
+          id
+          url
+          width
+        }
+      }
+    }
+    meta {
+      total
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesPageListQuery, CategoriesPageListQueryVariables>;
+export const CategoryProductsDocument = new TypedDocumentString(`
+    query CategoryProducts($slug: String) {
+  category(slug: $slug) {
+    id
+    products {
+      id
+      categories {
+        id
+        name
+      }
+      description
+      images {
+        alt
+        height
+        id
+        url
+        width
+      }
+      name
+      price
+      rating
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryProductsQuery, CategoryProductsQueryVariables>;
+export const CollectionBySlugDocument = new TypedDocumentString(`
+    query CollectionBySlug($slug: String!) {
+  collection(slug: $slug) {
+    description
+    id
+    name
+    products {
+      id
+      categories {
+        id
+        name
+      }
+      description
+      images {
+        alt
+        height
+        id
+        url
+        width
+      }
+      name
+      price
+      rating
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionBySlugQuery, CollectionBySlugQueryVariables>;
+export const HomePageDocument = new TypedDocumentString(`
+    query HomePage($take: Int!, $skip: Int!) {
+  collections {
+    data {
+      id
+      description
+      name
+      products {
+        id
+        images {
+          id
+          alt
+          height
+          url
+          width
+        }
+      }
+      slug
+    }
+  }
+  products(take: $take, skip: $skip) {
+    data {
+      id
+      categories {
+        id
+        name
+      }
+      description
+      images {
+        id
+        alt
+        height
+        url
+        width
+      }
+      name
+      price
+      rating
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<HomePageQuery, HomePageQueryVariables>;
 export const ProductByIdDocument = new TypedDocumentString(`
     query ProductById($id: ID!) {
   product(id: $id) {

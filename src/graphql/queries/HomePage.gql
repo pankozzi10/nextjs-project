@@ -1,0 +1,40 @@
+query HomePage($take: Int!, $skip: Int!) {
+    collections {
+        data {
+            id
+            description
+            name
+            products {
+                id
+                images {
+                    id
+                    alt
+                    height
+                    url
+                    width
+                }
+            }
+            slug
+        }
+    }
+    products(take: $take, skip: $skip) {
+        data {
+            id
+            categories {
+                id
+                name
+            }
+            description
+            images {
+                id
+                alt
+                height
+                url
+                width
+            }
+            name
+            price
+            rating
+        }
+    }
+}

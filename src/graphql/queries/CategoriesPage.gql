@@ -1,0 +1,46 @@
+query CategoriesPageList($take: Int, $skip: Int) {
+    categories(take: $take, skip: $skip) {
+        data {
+            id
+            name
+            description
+            slug
+            products {
+                images {
+                    alt
+                    height
+                    id
+                    url
+                    width
+                }
+            }
+        }
+        meta {
+            total
+        }
+    }
+}
+
+query CategoryProducts($slug: String) {
+    category(slug: $slug) {
+        id
+        products {
+            id
+            categories {
+                id
+                name
+            }
+            description
+            images {
+                alt
+                height
+                id
+                url
+                width
+            }
+            name
+            price
+            rating
+        }
+    }
+}
