@@ -1,4 +1,6 @@
 import { type Metadata } from "next";
+import { notFound } from "next/navigation";
+import { AddProductToCartAction } from "@api/cart";
 import { ProductByIdDocument, RelatedProductsDocument } from "@gql/graphql";
 import { AddToCartButton } from "@atoms/AddToCartButton";
 import { ProductImage } from "@atoms/ProductImage";
@@ -15,10 +17,15 @@ export async function generateMetadata({
 }: {
 	params: ProductPageParams;
 }): Promise<Metadata> {
-	const data = await executeGraphQL({
-		query: ProductByIdDocument,
-		variables: { id: productId ?? "" },
-	});
+	let data;
+	try {
+		data = await executeGraphQL({
+			query: ProductByIdDocument,
+			variables: { id: productId ?? "" },
+		});
+	} catch {
+		return notFound();
+	}
 
 	return {
 		title: data.product?.name ?? "Product not found",
@@ -27,12 +34,16 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params: { productId } }: ProductPageProps) {
-	if (!productId) throw new Error("No id");
+	let data, relatedData;
 
-	const data = await executeGraphQL({ query: ProductByIdDocument, variables: { id: productId } });
-	const relatedData = await executeGraphQL({ query: RelatedProductsDocument });
+	try {
+		data = await executeGraphQL({ query: ProductByIdDocument, variables: { id: productId ?? "" } });
+		relatedData = await executeGraphQL({ query: RelatedProductsDocument });
+	} catch {
+		return notFound();
+	}
 
-	if (!data.product) throw new Error("No product");
+	if (!data.product) return notFound();
 
 	return (
 		<section>
@@ -52,7 +63,10 @@ export default async function ProductPage({ params: { productId } }: ProductPage
 					<div className="py-10">
 						<p className="text-base text-gray-700">{data.product.description}</p>
 					</div>
-					<AddToCartButton />
+					<form action={AddProductToCartAction}>
+						<input type="text" name="productId" value={productId} hidden />
+						<AddToCartButton />
+					</form>
 				</div>
 			</div>
 			<RelatedProducts products={relatedData.products.data || []} />

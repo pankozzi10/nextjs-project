@@ -3,7 +3,7 @@ import { Mulish, Playfair_Display } from "next/font/google";
 import { clsx } from "clsx";
 import "./globals.css";
 import { type ReactNode } from "react";
-import { Navbar } from "@organisms/Navigation";
+import { Navbar } from "@organisms/Navbar";
 import { Footer } from "@atoms/Footer";
 
 const mulish = Mulish({ subsets: ["latin-ext"], variable: "--font-mulish" });
@@ -19,8 +19,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	modal,
 }: Readonly<{
 	children: ReactNode;
+	modal: ReactNode;
 }>) {
 	return (
 		<html lang="en" className={clsx([mulish.variable, playfairDisplay.variable], "h-full")}>
@@ -28,6 +30,7 @@ export default function RootLayout({
 				<Navbar />
 				<main className={"container m-auto py-20"}>{children}</main>
 				<Footer />
+				{modal}
 			</body>
 		</html>
 	);

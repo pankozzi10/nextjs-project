@@ -1,6 +1,15 @@
+"use client";
+
 export const AddToCartButton = () => {
 	return (
-		<div className={"group inline-flex cursor-pointer items-center gap-x-2"}>
+		<button
+			type={"submit"}
+			className={"group inline-flex cursor-pointer items-center gap-x-2"}
+			onClick={(e) => {
+				e.stopPropagation();
+				console.log("Add to cart action");
+			}}
+		>
 			<div
 				className={"rounded-md bg-green-600 px-2 py-1.5 transition-all group-hover:bg-green-500"}
 			>
@@ -22,6 +31,6 @@ export const AddToCartButton = () => {
 			>
 				Add to cart
 			</span>
-		</div>
+		</button>
 	);
 };

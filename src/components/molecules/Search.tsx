@@ -1,11 +1,12 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type ChangeEventHandler, useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 
 export const Search = () => {
 	const router = useRouter();
+	const pathname = usePathname();
 	const params = useSearchParams();
 	const query = params.get("query");
 
@@ -17,7 +18,13 @@ export const Search = () => {
 	};
 
 	useEffect(() => {
-		debouncedValue && router.replace(`/search?query=${debouncedValue}`);
+		if (pathname !== "/search") {
+			setValue("");
+		}
+	}, [pathname]);
+
+	useEffect(() => {
+		debouncedValue && router.push(`/search?query=${debouncedValue}`);
 	}, [debouncedValue, router]);
 
 	return (

@@ -28,7 +28,8 @@
 			"@organisms/*": ["./src/components/organisms/*"],
 			"@utils/*": ["./src/utils/*"],
 			"@gql/*": ["./src/gql/*"],
-			"@graphql/*": ["./src/graphql/*"]
+			"@graphql/*": ["./src/graphql/*"],
+			"@api/*": ["./src/api/*"]
 		},
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".graphqlrc.ts"],

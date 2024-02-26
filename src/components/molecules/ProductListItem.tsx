@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AddProductToCartAction } from "@api/cart";
 import { AddToCartButton } from "@atoms/AddToCartButton";
 import { ProductImage } from "@atoms/ProductImage";
 import { ProductListItemDescription } from "@molecules/ProductListItemDescription";
@@ -11,7 +12,10 @@ export const ProductListItem = ({ id, categories, name, price, images }: Product
 				<div className={"flex flex-col gap-4 p-6"}>
 					<ProductImage alt={`${images[0].alt} image`} src={images[0].url} />
 					<ProductListItemDescription name={name} category={categories[0].name} price={price} />
-					<AddToCartButton />
+					<form action={AddProductToCartAction}>
+						<input type="text" name="productId" value={id} hidden />
+						<AddToCartButton />
+					</form>
 				</div>
 			</Link>
 		</li>

@@ -1,0 +1,5 @@
+mutation CartFindOrCreate {
+    newCart: cartFindOrCreate(input: { items: [{productId: "1", quantity: 0}] }) {
+        id
+    }
+}

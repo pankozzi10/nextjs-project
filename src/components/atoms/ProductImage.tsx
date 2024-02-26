@@ -9,8 +9,8 @@ interface ProductImageProps {
 
 export const ProductImage = ({ alt, src, height = "200px" }: ProductImageProps) => {
 	return (
-		<div className={`h-350 relative w-full`} style={{ height: height }}>
+		<figure className={`h-350 relative w-full`} style={{ height: height }}>
 			<Image src={src} alt={alt} fill className={"object-contain"} />
-		</div>
+		</figure>
 	);
 };

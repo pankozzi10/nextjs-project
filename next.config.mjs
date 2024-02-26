@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ["via.placeholder.com", "naszsklep-api.vercel.app", "static-ourstore.hyperfunctor.com"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "static-ourstore.hyperfunctor.com",
+			},
+		],
 	},
-	experimental: {
-		typedRoutes: true,
-	},
+	experimental: { typedRoutes: true},
 	env: {
 		GRAPHQL_URL: process.env.GRAPHQL_URL,
 	},

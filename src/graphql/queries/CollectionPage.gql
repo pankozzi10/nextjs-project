@@ -4,22 +4,7 @@ query CollectionBySlug($slug: String!) {
         id
         name
         products {
-            id
-            categories {
-                id
-                name
-            }
-            description
-            images {
-                alt
-                height
-                id
-                url
-                width
-            }
-            name
-            price
-            rating
+            ...ProductBase
         }
     }
 }

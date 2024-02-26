@@ -2,7 +2,7 @@ import { ProductList } from "@organisms/ProductList";
 import { type Product } from "@utils/types";
 
 interface RelatedProductsProps {
-	products: Product[]; // change type to related products
+	products: Product[];
 }
 
 export const RelatedProducts = async ({ products }: RelatedProductsProps) => {

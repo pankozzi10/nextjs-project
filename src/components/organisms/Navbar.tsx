@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { ActiveLink } from "@atoms/ActiveLink";
 import { Search } from "@molecules/Search";
+import { CartNavigation } from "@atoms/CartNavigation";
 
 export const Navbar = () => {
 	return (
@@ -30,10 +31,10 @@ export const Navbar = () => {
 						Categories
 					</ActiveLink>
 				</nav>
-				<Suspense>
+				<Suspense fallback={null}>
 					<Search />
 				</Suspense>
-				<div>Cart</div>
+				<CartNavigation />
 			</div>
 		</header>
 	);

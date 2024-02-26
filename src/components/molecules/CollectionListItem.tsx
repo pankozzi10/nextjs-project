@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { type Collection } from "@utils/types";
 import { ProductImage } from "@atoms/ProductImage";
