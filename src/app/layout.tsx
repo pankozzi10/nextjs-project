@@ -15,6 +15,17 @@ const playfairDisplay = Playfair_Display({
 export const metadata: Metadata = {
 	title: "NextJS 14 - course",
 	description: "Created by Bartłomiej Kozyra",
+	metadataBase: new URL("https://acme.com"),
+	alternates: {
+		canonical: "/",
+		languages: {
+			"en-US": "/en-US",
+			"de-DE": "/de-DE",
+		},
+	},
+	openGraph: {
+		images: "/og-image.png",
+	},
 };
 
 export default function RootLayout({

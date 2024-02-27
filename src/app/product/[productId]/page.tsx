@@ -34,11 +34,17 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params: { productId } }: ProductPageProps) {
-	let data, relatedData;
+	let data, relatedData, filteredRelatedData;
 
 	try {
 		data = await executeGraphQL({ query: ProductByIdDocument, variables: { id: productId ?? "" } });
 		relatedData = await executeGraphQL({ query: RelatedProductsDocument });
+
+		if (relatedData.products.data.some((product) => product.id === productId)) {
+			filteredRelatedData = relatedData.products.data.filter((product) => product.id !== productId);
+		} else {
+			filteredRelatedData = relatedData.products.data.slice(0, 4);
+		}
 	} catch {
 		return notFound();
 	}
@@ -69,7 +75,7 @@ export default async function ProductPage({ params: { productId } }: ProductPage
 					</form>
 				</div>
 			</div>
-			<RelatedProducts products={relatedData.products.data || []} />
+			<RelatedProducts products={filteredRelatedData || []} />
 		</section>
 	);
 }

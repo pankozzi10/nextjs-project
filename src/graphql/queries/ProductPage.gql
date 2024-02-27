@@ -5,7 +5,7 @@ query ProductById($id: ID!) {
 }
 
 query RelatedProducts {
-    products(take: 4) {
+    products(take: 5) {
         data {
             ...ProductBase
         }

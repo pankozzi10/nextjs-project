@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { SearchPageProductListDocument } from "@gql/graphql";
 import { executeGraphQL } from "@utils/executeGraphQL";
 import { ProductList } from "@organisms/ProductList";
@@ -18,12 +19,17 @@ export async function generateMetadata({
 }
 
 export default async function SearchPage({ searchParams: { query } }: SearchPageProps) {
-	const data = await executeGraphQL({
-		query: SearchPageProductListDocument,
-		variables: {
-			search: query || "",
-		},
-	});
+	let data;
+	try {
+		data = await executeGraphQL({
+			query: SearchPageProductListDocument,
+			variables: {
+				search: query || "",
+			},
+		});
+	} catch {
+		return notFound();
+	}
 
 	return !data?.products.data.length ? (
 		<div className="flex flex-grow items-center justify-center">
