@@ -356,6 +356,7 @@ export type RelatedProductsQuery = { products: { data: Array<{ id: string, descr
 export type ProductsPageListQueryVariables = Exact<{
   take?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SortDirection>;
   orderBy?: InputMaybe<ProductSortBy>;
 }>;
 
@@ -636,8 +637,8 @@ export const RelatedProductsDocument = new TypedDocumentString(`
   rating
 }`) as unknown as TypedDocumentString<RelatedProductsQuery, RelatedProductsQueryVariables>;
 export const ProductsPageListDocument = new TypedDocumentString(`
-    query ProductsPageList($take: Int, $skip: Int, $orderBy: ProductSortBy) {
-  products(take: $take, skip: $skip, orderBy: $orderBy) {
+    query ProductsPageList($take: Int, $skip: Int, $order: SortDirection, $orderBy: ProductSortBy) {
+  products(take: $take, skip: $skip, order: $order, orderBy: $orderBy) {
     data {
       ...ProductBase
     }

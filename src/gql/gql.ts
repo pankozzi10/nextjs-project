@@ -24,7 +24,7 @@ const documents = {
     "query CollectionBySlug($slug: String!) {\n  collection(slug: $slug) {\n    description\n    id\n    name\n    products {\n      ...ProductBase\n    }\n  }\n}": types.CollectionBySlugDocument,
     "query HomePage($take: Int!, $skip: Int!) {\n  collections {\n    data {\n      id\n      description\n      name\n      products {\n        id\n        images {\n          id\n          alt\n          height\n          url\n          width\n        }\n      }\n      slug\n    }\n  }\n  products(take: $take, skip: $skip) {\n    data {\n      ...ProductBase\n    }\n  }\n}": types.HomePageDocument,
     "query ProductById($id: ID!) {\n  product(id: $id) {\n    ...ProductBase\n  }\n}\n\nquery RelatedProducts {\n  products(take: 5) {\n    data {\n      ...ProductBase\n    }\n  }\n}": types.ProductByIdDocument,
-    "query ProductsPageList($take: Int, $skip: Int, $orderBy: ProductSortBy) {\n  products(take: $take, skip: $skip, orderBy: $orderBy) {\n    data {\n      ...ProductBase\n    }\n    meta {\n      total\n    }\n  }\n}": types.ProductsPageListDocument,
+    "query ProductsPageList($take: Int, $skip: Int, $order: SortDirection, $orderBy: ProductSortBy) {\n  products(take: $take, skip: $skip, order: $order, orderBy: $orderBy) {\n    data {\n      ...ProductBase\n    }\n    meta {\n      total\n    }\n  }\n}": types.ProductsPageListDocument,
     "query SearchPageProductList($search: String) {\n  products(search: $search) {\n    data {\n      ...ProductBase\n    }\n    meta {\n      count\n    }\n  }\n}": types.SearchPageProductListDocument,
 };
 
@@ -71,7 +71,7 @@ export function graphql(source: "query ProductById($id: ID!) {\n  product(id: $i
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductsPageList($take: Int, $skip: Int, $orderBy: ProductSortBy) {\n  products(take: $take, skip: $skip, orderBy: $orderBy) {\n    data {\n      ...ProductBase\n    }\n    meta {\n      total\n    }\n  }\n}"): typeof import('./graphql').ProductsPageListDocument;
+export function graphql(source: "query ProductsPageList($take: Int, $skip: Int, $order: SortDirection, $orderBy: ProductSortBy) {\n  products(take: $take, skip: $skip, order: $order, orderBy: $orderBy) {\n    data {\n      ...ProductBase\n    }\n    meta {\n      total\n    }\n  }\n}"): typeof import('./graphql').ProductsPageListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

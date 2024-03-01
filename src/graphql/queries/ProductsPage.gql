@@ -1,5 +1,5 @@
-query ProductsPageList($take: Int, $skip: Int, $orderBy: ProductSortBy) {
-    products(take: $take, skip: $skip, orderBy: $orderBy) {
+query ProductsPageList($take: Int, $skip: Int, $order: SortDirection ,  $orderBy: ProductSortBy) {
+    products(take: $take, skip: $skip, order:$order, orderBy: $orderBy) {
         data {
             ...ProductBase
         }

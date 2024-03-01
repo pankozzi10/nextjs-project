@@ -50,7 +50,7 @@ export async function getOrCreateCart() {
 		const { cart } = await executeGraphQL({
 			query: CartGetByIdDocument,
 			variables: { id: cartId },
-			// next: { tags: ["cart"] },
+			next: { tags: ["cart"] },
 		});
 
 		if (cart) {

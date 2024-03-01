@@ -1,9 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { removeItem } from "src/app/cart/actions";
 
 export const RemoveButton = ({ cartId, productId }: { cartId: string; productId: string }) => {
+	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 
 	return (
@@ -12,6 +14,7 @@ export const RemoveButton = ({ cartId, productId }: { cartId: string; productId:
 			onClick={() =>
 				startTransition(async () => {
 					await removeItem(cartId, productId);
+					router.refresh();
 				})
 			}
 			className={"cursor-pointer disabled:cursor-wait"}

@@ -1,8 +1,8 @@
 "use client";
 
+import type { UrlObject } from "url";
 import Link from "next/link";
 import { type ReactNode } from "react";
-import { type Route } from "next";
 import { clsx } from "clsx";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +11,7 @@ export interface ActiveLinkProps<T extends string> {
 	children: ReactNode;
 	className: string;
 	exact?: boolean;
-	href: Route<T>;
+	href: UrlObject | __next_route_internal_types__.RouteImpl<T>;
 }
 
 export const ActiveLink = <T extends string>({
@@ -22,13 +22,14 @@ export const ActiveLink = <T extends string>({
 	href,
 }: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
-	const active = exact ? pathname === href : pathname.startsWith(href);
+	const currentPathname = (typeof href === "object" ? href.pathname : href) ?? "";
+	const active = exact ? pathname === currentPathname : pathname.startsWith(currentPathname);
 
 	return (
 		<Link
 			aria-current={active ? "page" : undefined}
 			className={clsx(className, active && activeClassName)}
-			href={{ pathname: href }}
+			href={href}
 			role="link"
 		>
 			{children}
