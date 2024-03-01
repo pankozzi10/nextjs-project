@@ -11,7 +11,7 @@ import {
 	ProductByIdDocument,
 } from "@gql/graphql";
 
-export async function AddProductToCartAction(formData: FormData) {
+export async function addProductToCartAction(formData: FormData) {
 	const productId = formData.get("productId");
 
 	if (typeof productId === "string") {
@@ -50,6 +50,7 @@ export async function getOrCreateCart() {
 		const { cart } = await executeGraphQL({
 			query: CartGetByIdDocument,
 			variables: { id: cartId },
+			// next: { tags: ["cart"] },
 		});
 
 		if (cart) {

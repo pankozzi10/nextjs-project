@@ -7,7 +7,6 @@ export const AddToCartButton = () => {
 			className={"group inline-flex cursor-pointer items-center gap-x-2"}
 			onClick={(e) => {
 				e.stopPropagation();
-				console.log("Add to cart action");
 			}}
 		>
 			<div

@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
-import { ProductsPageListDocument } from "@gql/graphql";
+import { type ProductSortBy, ProductsPageListDocument } from "@gql/graphql";
 import { PAGE_SIZE } from "@utils/constants";
 import { executeGraphQL } from "@utils/executeGraphQL";
 import { ProductList } from "@organisms/ProductList";
 import { Pagination } from "@organisms/Pagination";
 
-export type ProductsPageParams = { page?: string };
-type ProductsPageProps = { params: ProductsPageParams };
+type ProductsPageParams = { page?: string };
+type ProductPageSearchParams = { orderBy: ProductSortBy };
+type ProductsPageProps = { params: ProductsPageParams; searchParams: ProductPageSearchParams };
 
 export async function generateMetadata({ params: { page } }: { params: ProductsPageParams }) {
 	return {
@@ -15,7 +16,10 @@ export async function generateMetadata({ params: { page } }: { params: ProductsP
 	};
 }
 
-export default async function ProductsPage({ params: { page } }: ProductsPageProps) {
+export default async function ProductsPage({
+	params: { page },
+	searchParams: { orderBy },
+}: ProductsPageProps) {
 	if (!page) return notFound();
 
 	const data = await executeGraphQL({
@@ -23,6 +27,7 @@ export default async function ProductsPage({ params: { page } }: ProductsPagePro
 		variables: {
 			skip: (parseInt(page) - 1) * PAGE_SIZE,
 			take: PAGE_SIZE,
+			orderBy: orderBy,
 		},
 	});
 
@@ -30,9 +35,9 @@ export default async function ProductsPage({ params: { page } }: ProductsPagePro
 
 	return (
 		<section className="flex flex-col items-center justify-between">
-			<ProductList products={data.products.data} />
+			<ProductList products={data.products.data} orderSelect={{ route: `/products/${page}` }} />
 			<Pagination
-				setHref={(page) => `/products/${page}`}
+				setHref={(page) => `/products/${page}?orderBy=${orderBy}`}
 				pageSize={PAGE_SIZE}
 				totalItems={data.products.meta.total}
 			/>

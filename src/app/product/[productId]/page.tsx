@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AddProductToCartAction } from "@api/cart";
+import { addProductToCartAction } from "@api/cart";
 import { ProductByIdDocument, RelatedProductsDocument } from "@gql/graphql";
 import { AddToCartButton } from "@atoms/AddToCartButton";
 import { ProductImage } from "@atoms/ProductImage";
@@ -8,6 +8,7 @@ import { Badge } from "@atoms/Badge";
 import { ProductPrice } from "@atoms/ProductPrice";
 import { RelatedProducts } from "@organisms/RelatedProducts";
 import { executeGraphQL } from "@utils/executeGraphQL";
+import { StarsRating } from "@atoms/StarsRating";
 
 export type ProductPageParams = { productId?: string };
 type ProductPageProps = { params: ProductPageParams };
@@ -64,12 +65,15 @@ export default async function ProductPage({ params: { productId } }: ProductPage
 
 				<div className={"pl-8"}>
 					<Badge>{data.product.categories[0].name}</Badge>
-					<h1 className={"pb-3 pt-8 text-4xl"}>{data.product.name}</h1>
+					<h1 className={"pt-8 text-4xl"}>{data.product.name}</h1>
+					<div className={"pb-8 pt-2"}>
+						<StarsRating rating={data.product.rating ?? 0} size={"medium"} />
+					</div>
 					<ProductPrice price={data.product.price} />
 					<div className="py-10">
 						<p className="text-base text-gray-700">{data.product.description}</p>
 					</div>
-					<form action={AddProductToCartAction}>
+					<form action={addProductToCartAction}>
 						<input type="text" name="productId" value={productId} hidden />
 						<AddToCartButton />
 					</form>

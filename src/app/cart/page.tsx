@@ -5,6 +5,7 @@ import { executeGraphQL } from "@utils/executeGraphQL";
 import { CartGetByIdDocument } from "@gql/graphql";
 import { formatMoney } from "@utils/formatMoney";
 import { RemoveButton } from "@atoms/RemoveButton";
+import { QuantityButton } from "@atoms/QuantityButton";
 
 export default async function CartModalPage() {
 	const cartId = cookies().get("cartId")?.value;
@@ -51,7 +52,7 @@ export default async function CartModalPage() {
 									"flex items-center justify-between gap-x-4 border-b border-gray-300 py-4"
 								}
 							>
-								<div className={"flex items-center gap-x-2"}>
+								<div className={"flex items-center gap-x-8"}>
 									<div className={"flex shrink-0 items-center justify-center"}>
 										<Image
 											src={item.product.images[0].url}
@@ -62,7 +63,11 @@ export default async function CartModalPage() {
 									</div>
 									<div className={"flex flex-col"}>
 										<p className={"font-bold"}>{item.product.name}</p>
-										<p className={"text-gray-700"}>{item.quantity} elem.</p>
+										<QuantityButton
+											cartId={cartId}
+											itemId={item.product.id}
+											quantity={item.quantity}
+										/>
 									</div>
 								</div>
 								<div className={"flex gap-x-2"}>

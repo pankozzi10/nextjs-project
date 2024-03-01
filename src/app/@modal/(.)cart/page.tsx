@@ -3,6 +3,7 @@ import { getOrCreateCart } from "@api/cart";
 import { formatMoney } from "@utils/formatMoney";
 import { Overlay } from "@atoms/Overlay";
 import { RemoveButton } from "@atoms/RemoveButton";
+import { QuantityButton } from "@atoms/QuantityButton";
 
 export default async function ModalCart() {
 	const cart = await getOrCreateCart();
@@ -43,7 +44,11 @@ export default async function ModalCart() {
 										</div>
 										<div className={"flex flex-col"}>
 											<p className={"font-bold"}>{item.product.name}</p>
-											<p className={"text-gray-700"}>{item.quantity} elem.</p>
+											<QuantityButton
+												cartId={cart.id}
+												itemId={item.product.id}
+												quantity={item.quantity}
+											/>
 										</div>
 									</div>
 									<div className={"flex gap-x-2"}>
