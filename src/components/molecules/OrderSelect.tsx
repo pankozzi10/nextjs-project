@@ -20,8 +20,6 @@ export const OrderSelect = ({ route }: OrderSelectProps) => {
 	const orderBy = searchParams.get("orderBy");
 	const order = searchParams.get("order");
 
-	const searchParamsValues = Object.fromEntries(searchParams.entries());
-
 	return (
 		<>
 			<select

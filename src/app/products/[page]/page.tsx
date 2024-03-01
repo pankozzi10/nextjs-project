@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { type ProductSortBy, ProductsPageListDocument, SortDirection } from "@gql/graphql";
+import { type ProductSortBy, ProductsPageListDocument, type SortDirection } from "@gql/graphql";
 import { PAGE_SIZE } from "@utils/constants";
 import { executeGraphQL } from "@utils/executeGraphQL";
 import { ProductList } from "@organisms/ProductList";
