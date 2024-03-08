@@ -40,43 +40,45 @@ export default async function CartModalPage() {
 					<h2 className={"text-xl font-bold"}>Your Cart</h2>
 				</div>
 				<ul className={"mt-4"}>
-					{cart.items.map((item, index) => {
-						if (!item.product) {
-							return null;
-						}
+					{cart.items
+						.filter((item) => item.quantity)
+						.map((item, index) => {
+							if (!item.product) {
+								return null;
+							}
 
-						return (
-							<li
-								key={item.product.id + index}
-								className={
-									"flex items-center justify-between gap-x-4 border-b border-gray-300 py-4"
-								}
-							>
-								<div className={"flex items-center gap-x-8"}>
-									<div className={"flex shrink-0 items-center justify-center"}>
-										<Image
-											src={item.product.images[0].url}
-											alt={item.product.images[0].alt}
-											width={64}
-											height={64}
-										/>
+							return (
+								<li
+									key={item.product.id + index}
+									className={
+										"flex items-center justify-between gap-x-4 border-b border-gray-300 py-4"
+									}
+								>
+									<div className={"flex items-center gap-x-8"}>
+										<div className={"flex shrink-0 items-center justify-center"}>
+											<Image
+												src={item.product.images[0].url}
+												alt={item.product.images[0].alt}
+												width={64}
+												height={64}
+											/>
+										</div>
+										<div className={"flex flex-col"}>
+											<p className={"font-bold"}>{item.product.name}</p>
+											<QuantityButton
+												cartId={cartId}
+												itemId={item.product.id}
+												quantity={item.quantity}
+											/>
+										</div>
 									</div>
-									<div className={"flex flex-col"}>
-										<p className={"font-bold"}>{item.product.name}</p>
-										<QuantityButton
-											cartId={cartId}
-											itemId={item.product.id}
-											quantity={item.quantity}
-										/>
+									<div className={"flex gap-x-2"}>
+										<span>{formatMoney(item.quantity * item.product.price)}</span>
+										<RemoveButton cartId={cartId} productId={item.product.id} />
 									</div>
-								</div>
-								<div className={"flex gap-x-2"}>
-									<span>{formatMoney(item.quantity * item.product.price)}</span>
-									<RemoveButton cartId={cartId} productId={item.product.id} />
-								</div>
-							</li>
-						);
-					})}
+								</li>
+							);
+						})}
 				</ul>
 				<div className={"flex justify-end py-6 text-purple-900"}>
 					total: {formatMoney(totalCart ?? 0)}

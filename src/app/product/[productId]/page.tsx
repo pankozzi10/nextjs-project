@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
+// import { Suspense } from "react";
 import { addProductToCartAction } from "@api/cart";
 import { ProductByIdDocument, RelatedProductsDocument } from "@gql/graphql";
 import { AddToCartButton } from "@atoms/AddToCartButton";
@@ -9,6 +10,7 @@ import { ProductPrice } from "@atoms/ProductPrice";
 import { RelatedProducts } from "@organisms/RelatedProducts";
 import { executeGraphQL } from "@utils/executeGraphQL";
 import { StarsRating } from "@atoms/StarsRating";
+import { Reviews } from "@organisms/Reviews";
 
 export type ProductPageParams = { productId?: string };
 type ProductPageProps = { params: ProductPageParams };
@@ -74,12 +76,19 @@ export default async function ProductPage({ params: { productId } }: ProductPage
 						<p className="text-base text-gray-700">{data.product.description}</p>
 					</div>
 					<form action={addProductToCartAction}>
-						<input type="text" name="productId" value={productId} hidden />
-						<AddToCartButton />
+						<input type="text" name="productId" defaultValue={productId} hidden />
+						<AddToCartButton testId={"add-to-cart-button"} />
 					</form>
 				</div>
 			</div>
+
+			{/*<Suspense fallback={null}>*/}
 			<RelatedProducts products={filteredRelatedData || []} />
+			{/*</Suspense>*/}
+
+			{/*<Suspense fallback={null}>*/}
+			<Reviews productId={productId} />
+			{/*</Suspense>*/}
 		</section>
 	);
 }

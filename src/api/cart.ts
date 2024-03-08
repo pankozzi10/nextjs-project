@@ -10,13 +10,19 @@ import {
 	CartGetByIdDocument,
 	ProductByIdDocument,
 } from "@gql/graphql";
+import { changeItemQuantity } from "@app/cart/actions";
 
 export async function addProductToCartAction(formData: FormData) {
 	const productId = formData.get("productId");
 
 	if (typeof productId === "string") {
 		const cart = (await getOrCreateCart()) as Cart;
-		await addProductToCart(cart.id, productId);
+		const quantity = cart.items?.find((item) => item.product.id === productId)?.quantity;
+		if (quantity) {
+			await changeItemQuantity(cart.id, productId, quantity + 1);
+		} else {
+			await addProductToCart(cart.id, productId);
+		}
 	}
 
 	revalidateTag("cart");

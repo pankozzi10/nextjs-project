@@ -8,7 +8,6 @@ interface CollectionListProps {
 export const CollectionList = async ({ collections }: CollectionListProps) => {
 	return (
 		<ul
-			data-testid="products-list"
 			className={
 				"radius grid w-full grid-cols-3 gap-px overflow-hidden rounded-3xl border border-gray-300 bg-gray-300 [&>li]:bg-white [&>li]:outline-1"
 			}

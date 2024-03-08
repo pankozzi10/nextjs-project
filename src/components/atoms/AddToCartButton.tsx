@@ -1,8 +1,13 @@
 "use client";
 
-export const AddToCartButton = () => {
+interface AddToCartButtonProps {
+	testId?: string;
+}
+
+export const AddToCartButton = ({ testId }: AddToCartButtonProps) => {
 	return (
 		<button
+			data-testid={testId}
 			type={"submit"}
 			className={"group inline-flex cursor-pointer items-center gap-x-2"}
 			onClick={(e) => {

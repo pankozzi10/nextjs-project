@@ -24,12 +24,13 @@ export const ProductList = async ({
 			>
 				{products.map((product, index) => (
 					<ProductListItem
-						id={product.id}
 						key={index}
+						id={product.id}
 						categories={product.categories}
+						images={product.images}
 						name={product.name}
 						price={product.price}
-						images={product.images}
+						rating={product.rating}
 					/>
 				))}
 			</ul>

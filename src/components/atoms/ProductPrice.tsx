@@ -5,5 +5,9 @@ interface ProductPriceProps {
 }
 
 export const ProductPrice = ({ price }: ProductPriceProps) => {
-	return <p className={"text-xl font-extrabold text-red-600"}>{formatMoney(price)}</p>;
+	return (
+		<p data-testid="product-price" className={"text-xl font-extrabold text-red-600"}>
+			{formatMoney(price)}
+		</p>
+	);
 };

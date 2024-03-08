@@ -179,7 +179,8 @@ export type ProductList = {
 export type ProductSortBy =
   | 'DEFAULT'
   | 'NAME'
-  | 'PRICE';
+  | 'PRICE'
+  | 'RATING';
 
 export type Query = {
   cart?: Maybe<Cart>;
@@ -274,6 +275,8 @@ export type SortDirection =
 
 export type ProductBaseFragment = { id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ id: string, alt: string, height: number, url: string, width: number }> };
 
+export type ProductReviewFragment = { author: string, createdAt: unknown, description: string, email: string, id: string, rating: number, title: string };
+
 export type CartAddItemMutationVariables = Exact<{
   id: Scalars['ID']['input'];
   input: MutationCartAddItemInput;
@@ -303,6 +306,18 @@ export type CartRemoveItemMutationVariables = Exact<{
 
 
 export type CartRemoveItemMutation = { cartRemoveItem: { id: string } };
+
+export type CreateReviewMutationVariables = Exact<{
+  author: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  productId: Scalars['ID']['input'];
+  rating: Scalars['Int']['input'];
+  title: Scalars['String']['input'];
+}>;
+
+
+export type CreateReviewMutation = { reviewCreate: { id: string } };
 
 export type CartGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -352,6 +367,13 @@ export type RelatedProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RelatedProductsQuery = { products: { data: Array<{ id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ id: string, alt: string, height: number, url: string, width: number }> }> } };
+
+export type ProductReviewsQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ProductReviewsQuery = { product?: { id: string, reviews: Array<{ author: string, createdAt: unknown, description: string, email: string, id: string, rating: number, title: string }> } | null };
 
 export type ProductsPageListQueryVariables = Exact<{
   take?: InputMaybe<Scalars['Int']['input']>;
@@ -404,6 +426,17 @@ export const ProductBaseFragmentDoc = new TypedDocumentString(`
   rating
 }
     `, {"fragmentName":"ProductBase"}) as unknown as TypedDocumentString<ProductBaseFragment, unknown>;
+export const ProductReviewFragmentDoc = new TypedDocumentString(`
+    fragment ProductReview on Review {
+  author
+  createdAt
+  description
+  email
+  id
+  rating
+  title
+}
+    `, {"fragmentName":"ProductReview"}) as unknown as TypedDocumentString<ProductReviewFragment, unknown>;
 export const CartAddItemDocument = new TypedDocumentString(`
     mutation CartAddItem($id: ID!, $input: MutationCartAddItemInput!) {
   cartAddItem(id: $id, input: $input) {
@@ -440,6 +473,20 @@ export const CartRemoveItemDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CartRemoveItemMutation, CartRemoveItemMutationVariables>;
+export const CreateReviewDocument = new TypedDocumentString(`
+    mutation CreateReview($author: String!, $description: String!, $email: String!, $productId: ID!, $rating: Int!, $title: String!) {
+  reviewCreate(
+    author: $author
+    description: $description
+    email: $email
+    productId: $productId
+    rating: $rating
+    title: $title
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CreateReviewMutation, CreateReviewMutationVariables>;
 export const CartGetByIdDocument = new TypedDocumentString(`
     query CartGetById($id: ID!) {
   cart(id: $id) {
@@ -636,6 +683,24 @@ export const RelatedProductsDocument = new TypedDocumentString(`
   price
   rating
 }`) as unknown as TypedDocumentString<RelatedProductsQuery, RelatedProductsQueryVariables>;
+export const ProductReviewsDocument = new TypedDocumentString(`
+    query ProductReviews($id: ID!) {
+  product(id: $id) {
+    id
+    reviews {
+      ...ProductReview
+    }
+  }
+}
+    fragment ProductReview on Review {
+  author
+  createdAt
+  description
+  email
+  id
+  rating
+  title
+}`) as unknown as TypedDocumentString<ProductReviewsQuery, ProductReviewsQueryVariables>;
 export const ProductsPageListDocument = new TypedDocumentString(`
     query ProductsPageList($take: Int, $skip: Int, $order: SortDirection, $orderBy: ProductSortBy) {
   products(take: $take, skip: $skip, order: $order, orderBy: $orderBy) {

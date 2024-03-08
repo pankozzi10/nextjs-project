@@ -43,8 +43,8 @@ export const QuantityButton = ({ cartId, itemId, quantity }: QuantityButtonProps
 						/>
 					</svg>
 				</button>
-				<div className={"flex w-16 justify-center text-gray-700"} data-testid="quantity">
-					{optimisticQuantity} elem.
+				<div className={"flex w-16 justify-center gap-x-1 text-gray-700"}>
+					<span data-testid={"quantity"}>{optimisticQuantity}</span> elem.
 				</div>
 				<button
 					className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-sm border-0 bg-gray-700 hover:bg-purple-700 focus:outline-none"

@@ -29,9 +29,11 @@ export default async function ProductPage({ params: { slug } }: CollectionPagePr
 
 	return (
 		<section>
-			<div className={"mb-4 flex items-center gap-x-5"}>
-				<h3 className={"text-2xl font-bold text-neutral-600"}>{data.collection?.name}</h3>
-				<span className={"pt-1 text-xs font-normal text-gray-500"}>
+			<div className={"mb-6 flex items-center gap-x-5"}>
+				<h3 className={"text-2xl font-bold text-neutral-600"} role={"heading"}>
+					{data.collection?.name}
+				</h3>
+				<span className={"pt-2 text-xs font-normal text-gray-500"}>
 					{data.collection?.description}
 				</span>
 			</div>
