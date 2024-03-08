@@ -29,7 +29,7 @@ export const Reviews = async ({ productId }: ReviewsProps) => {
 
 	return (
 		<section className="mt-24">
-			<ReviewForm productId={productId ?? ""} reviews={reviews} />
+			<ReviewForm productId={productId ?? ""} />
 			<ReviewList reviews={reviews} />
 		</section>
 	);
