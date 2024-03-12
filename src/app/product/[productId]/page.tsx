@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
-// import { Suspense } from "react";
+// import { AlgoliaRelatedProducts } from "@organisms/AlgoliaRelatedProducts";
+import { Suspense } from "react";
 import { addProductToCartAction } from "@api/cart";
 import { ProductByIdDocument, RelatedProductsDocument } from "@gql/graphql";
 import { AddToCartButton } from "@atoms/AddToCartButton";
@@ -82,13 +83,16 @@ export default async function ProductPage({ params: { productId } }: ProductPage
 				</div>
 			</div>
 
-			{/*<Suspense fallback={null}>*/}
-			<RelatedProducts products={filteredRelatedData || []} />
+			{/*<Suspense fallback={<div>Loading...</div>}>*/}
+			{/*	<AlgoliaRelatedProducts category={data.product.categories[0].name} productId={productId} />*/}
 			{/*</Suspense>*/}
 
-			{/*<Suspense fallback={null}>*/}
-			<Reviews productId={productId} />
-			{/*</Suspense>*/}
+			<Suspense fallback={<div>Loading...</div>}>
+				<RelatedProducts products={filteredRelatedData || []} />
+			</Suspense>
+			<Suspense fallback={null}>
+				<Reviews productId={productId} />
+			</Suspense>
 		</section>
 	);
 }

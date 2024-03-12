@@ -93,6 +93,7 @@ export type MutationCartChangeItemQuantityArgs = {
 
 export type MutationCartCompleteArgs = {
   cartId: Scalars['ID']['input'];
+  userEmail: Scalars['String']['input'];
 };
 
 
@@ -339,7 +340,7 @@ export type CategoryProductsQueryVariables = Exact<{
 }>;
 
 
-export type CategoryProductsQuery = { category?: { id: string, products: Array<{ id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ id: string, alt: string, height: number, url: string, width: number }> }> } | null };
+export type CategoryProductsQuery = { category?: { id: string, name: string, slug: string, products: Array<{ id: string, description: string, name: string, price: number, rating?: number | null, categories: Array<{ id: string, name: string }>, images: Array<{ id: string, alt: string, height: number, url: string, width: number }> }> } | null };
 
 export type CollectionBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -537,6 +538,8 @@ export const CategoryProductsDocument = new TypedDocumentString(`
     query CategoryProducts($slug: String) {
   category(slug: $slug) {
     id
+    name
+    slug
     products {
       ...ProductBase
     }

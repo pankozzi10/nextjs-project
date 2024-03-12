@@ -15,7 +15,7 @@ export default async function ProductsPage() {
 		query: CategoriesPageListDocument,
 		variables: {
 			skip: 0,
-			take: 10,
+			take: 3,
 		},
 	});
 

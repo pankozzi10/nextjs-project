@@ -26,9 +26,23 @@ export const Navbar = () => {
 					<ActiveLink
 						activeClassName="text-purple-800 font-bold after:h-0.5 after:w-full after:bg-purple-800 after:absolute after:top-full after:left-0"
 						className="relative flex h-full items-center px-4"
-						href="/categories"
+						href="/categories/hoodies"
 					>
-						Categories
+						Hoodies
+					</ActiveLink>
+					<ActiveLink
+						activeClassName="text-purple-800 font-bold after:h-0.5 after:w-full after:bg-purple-800 after:absolute after:top-full after:left-0"
+						className="relative flex h-full items-center text-nowrap px-4"
+						href="/categories/t-shirts"
+					>
+						T-shirts
+					</ActiveLink>
+					<ActiveLink
+						activeClassName="text-purple-800 font-bold after:h-0.5 after:w-full after:bg-purple-800 after:absolute after:top-full after:left-0"
+						className="relative flex h-full items-center px-4"
+						href="/categories/accessories"
+					>
+						Accessories
 					</ActiveLink>
 				</nav>
 				<Suspense fallback={null}>

@@ -18,7 +18,7 @@ export const ProductListItemDescription = ({
 	return (
 		<div className={"flex flex-col"}>
 			<Badge>{category}</Badge>
-			<h3 className={"pt-2.5"}>{name}</h3>
+			<h2 className={"pt-2.5"}>{name}</h2>
 			<div className={"pb-4 pt-2"}>
 				<StarsRating rating={rating ?? 0} size={"small"} />
 			</div>

@@ -24,6 +24,8 @@ query CategoriesPageList($take: Int, $skip: Int) {
 query CategoryProducts($slug: String) {
     category(slug: $slug) {
         id
+        name
+        slug
         products {
             ...ProductBase
         }
