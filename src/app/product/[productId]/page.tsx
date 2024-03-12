@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AlgoliaRelatedProducts } from "@organisms/AlgoliaRelatedProducts";
+// import { AlgoliaRelatedProducts } from "@organisms/AlgoliaRelatedProducts";
+import { Suspense } from "react";
 import { addProductToCartAction } from "@api/cart";
 import { ProductByIdDocument, RelatedProductsDocument } from "@gql/graphql";
 import { AddToCartButton } from "@atoms/AddToCartButton";
@@ -11,7 +12,6 @@ import { RelatedProducts } from "@organisms/RelatedProducts";
 import { executeGraphQL } from "@utils/executeGraphQL";
 import { StarsRating } from "@atoms/StarsRating";
 import { Reviews } from "@organisms/Reviews";
-import { Suspense } from "react";
 
 export type ProductPageParams = { productId?: string };
 type ProductPageProps = { params: ProductPageParams };
