@@ -22,7 +22,7 @@ export const ProductList = async ({
 					"radius grid w-full grid-cols-4 gap-px overflow-hidden rounded-3xl border border-gray-300 bg-gray-300 [&>li]:bg-white [&>li]:outline-1"
 				}
 			>
-				{products.map((product, index) => (
+				{products?.map((product, index) => (
 					<ProductListItem
 						key={index}
 						id={product.id}
